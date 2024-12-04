@@ -10,8 +10,23 @@ def get_leads_list_and_post_leads_route():
     """Маршрут для получения списка сделок и их создания."""
     if request.method == "GET":
         response_data, status_code = get_leads_list()
-    elif request.method == "POST":
-        response_data, status_code = post_leads(request.get_json())
+    if request.method == "POST":
+        student_submission_ids_crm = [
+            (lead["student_id"], lead["submission_id"])
+            for lead in request.json
+        ]
+        leads_list, _ = get_leads_list()
+        student_id_ids_amocrm = [
+            (lead["student_id"], lead["id"])
+            for lead in leads_list["_embedded"]["leads"]
+        ]
+        unique_leads = []
+        for i in range(len(request.json)):
+            if student_submission_ids_crm[i] not in student_id_ids_amocrm:
+                unique_leads.append(request.json[i])
+            if not unique_leads:
+                unique_leads = request.json
+        response_data, status_code = post_leads(unique_leads)
     return jsonify(response_data), status_code
 
 
