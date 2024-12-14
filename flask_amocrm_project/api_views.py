@@ -16,10 +16,13 @@ def get_leads_list_and_post_leads_route():
             for lead in request.json
         ]
         leads_list, _ = get_leads_list()
-        student_id_ids_amocrm = [
-            (lead["student_id"], lead["id"])
-            for lead in leads_list["_embedded"]["leads"]
-        ]
+        if leads_list:
+            student_id_ids_amocrm = [
+                (lead["student_id"], lead["id"])
+                for lead in leads_list["_embedded"]["leads"]
+            ]
+        else:
+            student_id_ids_amocrm = []
         unique_leads = []
         for i in range(len(request.json)):
             if student_submission_ids_crm[i] not in student_id_ids_amocrm:
