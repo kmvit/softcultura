@@ -9,5 +9,5 @@ services:
       - ./flask_amocrm_project:/app
       - ./logs:/app/logs
     ports:
-      - "80:5000"
+      - "5050:5000"
     command: flask run --host=0.0.0.0

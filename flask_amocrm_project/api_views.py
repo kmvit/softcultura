@@ -52,6 +52,9 @@ def get_leads_list_and_post_leads_route():
                                     subm_stud_ids_amocrm.append(
                                         (subm_id_amocrm, stud_id_amocrm)
                                     )
+                if not lead["custom_fields_values"]:
+                    subm_stud_ids_amocrm.append((0, 0))
+
         for i in range(len(request.json)):
             if subm_stud_ids_crm[i] not in subm_stud_ids_amocrm:
                 unique_leads.append(request.json[i])

@@ -14,6 +14,7 @@ parameters:
             "date_received": "2021-10-01",
             "price": 7000,
             "student_email": "uuu@gmail.com",
+            "student_id": "A22130",
             "student_name": "Name1",
             "student_phone": "+770000000000",
             "student_surname": "Surname1",
