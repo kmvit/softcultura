@@ -21,7 +21,6 @@ def create_list_leads(data_json: list[dict]):
     leads = list()
     for lead_data in data_json:
         lead = dict(
-            id=str(lead_data.get("submission_id")),
             name=str(
                 f'{lead_data.get("airtable_id")} '
                 f'{lead_data.get("course_code")}'
@@ -30,12 +29,44 @@ def create_list_leads(data_json: list[dict]):
             status_id=STATUSES_LEADS[lead_data.get("status")],
             pipeline_id=ID_VOR,
             created_at=date_str_to_unix(lead_data.get("date_received")),
-            created_by=0,
-            score=(
-                int(lead_data.get("amount_paid"))
-                if lead_data.get("amount_paid") is not None
-                else None
-            ),
+            score=None,
+            custom_fields_values=[
+                dict(
+                    field_id=877329,
+                    field_name="Номер заявки",
+                    field_code=None,
+                    field_type="text",
+                    values=[
+                        dict(
+                            value=str(lead_data.get("submission_id")),
+                        ),
+                    ],
+                ),
+                dict(
+                    field_id=877323,
+                    field_name="Оплачено",
+                    field_code=None,
+                    field_type="numeric",
+                    values=[
+                        dict(
+                            value=int(lead_data.get("amount_paid")),
+                        ),
+                    ],
+                ),
+                dict(
+                    field_id=877335,
+                    field_name="Дата заявки",
+                    field_code=None,
+                    field_type="date",
+                    values=[
+                        dict(
+                            value=date_str_to_unix(
+                                lead_data.get("date_received")
+                            ),
+                        ),
+                    ],
+                ),
+            ],
             _embedded=dict(
                 contacts=[
                     dict(
@@ -45,7 +76,6 @@ def create_list_leads(data_json: list[dict]):
                             f'{lead_data.get("student_name")} '
                             f'{lead_data.get("student_surname")}'
                         ),
-                        student_id=str(lead_data.get("student_id")),
                         custom_fields_values=[
                             dict(
                                 field_code="PHONE",
@@ -63,6 +93,17 @@ def create_list_leads(data_json: list[dict]):
                                         enum_code="WORK",
                                         value=lead_data.get("student_email"),
                                     )
+                                ],
+                            ),
+                            dict(
+                                field_id=880093,
+                                field_name="student_id",
+                                field_code=None,
+                                field_type="text",
+                                values=[
+                                    dict(
+                                        value=str(lead_data.get("student_id")),
+                                    ),
                                 ],
                             ),
                         ],
@@ -110,6 +151,11 @@ def try_except_decorator(func):
             logger.error(f"Request Error: {req_err}")
             return (
                 {"error": "Request Error", "message": str(req_err)},
+                http.HTTPStatus.INTERNAL_SERVER_ERROR,
+            )
+        except ValueError as val_err:
+            return (
+                dict(error=f"Invalid symbol: {val_err}"),
                 http.HTTPStatus.INTERNAL_SERVER_ERROR,
             )
 

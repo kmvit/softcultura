@@ -1,0 +1,58 @@
+description: Получение сделки по id из сервиса amoCRM.
+tags:
+  - lead
+parameters:
+  - name: id
+    required: true
+    in: path
+    description: id сделки в amoCRM.
+    type: integer
+    schema:
+      type: integer
+      example: 13282723
+responses:
+  200:
+    description: Сделка в формате json (словаря)
+    schema:
+      example: {
+        "_embedded": {
+            "companies": [],
+            "contacts": [
+                {
+                    "_links": {
+                        "self": {
+                            "href": "https://softculture.amocrm.ru/api/v4/contacts/16823473?with=contacts&page=1&limit=250"  # noqa
+                        }
+                    },
+                    "id": 16823473,
+                    "is_main": True
+                }
+            ],
+            "tags": []
+        },
+        "_links": {
+            "self": {
+                "href": "https://softculture.amocrm.ru/api/v4/leads/13282723?with=contacts&page=1&limit=250"  # noqa
+            }
+        },
+        "account_id": 31727418,
+        "closed_at": 1731054367,
+        "closest_task_at": None,
+        "created_at": 1633035600,
+        "created_by": 0,
+        "custom_fields_values": None,
+        "group_id": 0,
+        "id": 13282723,
+        "is_deleted": False,
+        "labor_cost": None,
+        "loss_reason_id": None,
+        "name": "M13752 ISB_7.7.07",
+        "pipeline_id": 8117898,
+        "price": 7000,
+        "responsible_user_id": 10998074,
+        "score": None,
+        "status_id": 142,
+        "updated_at": 1731054367,
+        "updated_by": 0
+      }
+summary: Get lead in json

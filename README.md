@@ -60,7 +60,9 @@ docker compose up
 
 ## Примеры запросов:
 
-> Подробнее можно ознакомится в документации amoCRM https://www.amocrm.ru/developers/content/crm_platform/leads-api
+> Подробнее можно ознакомиться в документации amoCRM https://www.amocrm.ru/developers/content/crm_platform/leads-api
+
+> Подробнее можно ознакомиться в документации Swagger http://188.72.76.76:5050/apidocs/
 
 ### Получение списка сделок (GET-запрос):
 
@@ -150,7 +152,7 @@ http://127.0.0.1:5000/api/v1/leads/
 ### Получение сделки по ID (GET-запрос):
 
 ```
-http://127.0.0.1:5000/api/v1/leads/3637385
+http://127.0.0.1:5000/api/v1/lead/3637385
 ```
 
 Пример ответа:

@@ -1,0 +1,49 @@
+description: Добавление сделок в amoCRM, из переданного списка сделок.
+tags:
+  - leads
+parameters:
+  - name: body
+    in: body
+    required: true
+    schema:
+      example: [
+        {
+            "airtable_id": "M13752",
+            "amount_paid": 7000,
+            "course_code": "ISB_7.7.07",
+            "date_received": "2021-10-01",
+            "price": 7000,
+            "student_email": "uuu@gmail.com",
+            "student_name": "Name1",
+            "student_phone": "+770000000000",
+            "student_surname": "Surname1",
+            "submission_id": "P18814",
+            "status": "Оплачена полностью",
+        },
+        {},
+      ]
+responses:
+  200:
+    description: Список сделок в формате json (словаря)
+    schema:
+      example: [
+        {
+            "id":15198335,
+            "contact_id":19663157,
+            "company_id":19663155,
+            "request_id":[
+              "qweasd"
+            ],
+            "merged":false
+        },
+        {
+            "id":15198337,
+            "contact_id":19663161,
+            "company_id":19663159,
+            "request_id":[
+              "uns_qweasd"
+            ],
+            "merged":false
+        }
+      ]
+summary: Post list leads in json
